@@ -5,13 +5,14 @@ import { applyMiddleware, createStore } from "redux"
 import createSagaMiddleware from "redux-saga"
 import Counter from "./Counter"
 import reducer from "./reducers"
-import { watchHello } from "./sagas"
+import { watchHello, watchIncrementAsync } from "./sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(reducer, applyMiddleware(sagaMiddleware))
 
 sagaMiddleware.run(watchHello)
+sagaMiddleware.run(watchIncrementAsync)
 
 const action = type => store.dispatch({ type })
 
