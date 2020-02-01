@@ -5,25 +5,25 @@ import { applyMiddleware, createStore } from "redux"
 import createSagaMiddleware from "redux-saga"
 import Counter from "./Counter"
 import reducer from "./reducers"
-import { watchHello, watchIncrementAsync } from "./sagas"
+import rootSaga from "./sagas"
 
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(reducer, applyMiddleware(sagaMiddleware))
 
-sagaMiddleware.run(watchHello)
-sagaMiddleware.run(watchIncrementAsync)
+sagaMiddleware.run(rootSaga)
 
-const action = type => store.dispatch({ type })
+const action = act => store.dispatch(act)
 
 function render() {
   ReactDOM.render(
     <Counter
       value={store.getState()}
-      onIncrement={() => action("INCREMENT")}
-      onDecrement={() => action("DECREMENT")}
-      onIncrementAsync={() => action("INCREMENT_ASYNC")}
-      onSayHello={() => action("SAY_HELLO")}
+      onIncrement={() => action({ type: "INCREMENT" })}
+      onDecrement={() => action({ type: "DECREMENT" })}
+      onIncrementAsync={() => action({ type: "INCREMENT_ASYNC" })}
+      onSayHello={() => action({ type: "SAY_HELLO" })}
+      onWriteLog={msg => action({ type: "WRITE_LOG", msg: msg })}
     />,
     document.getElementById("root")
   )

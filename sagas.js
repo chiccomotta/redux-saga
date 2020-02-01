@@ -1,4 +1,4 @@
-import { put, takeEvery } from "redux-saga/effects"
+import { all, put, takeEvery } from "redux-saga/effects"
 
 const delay = ms => new Promise(res => setTimeout(res, ms))
 
@@ -22,8 +22,16 @@ export function* watchHello() {
   yield takeEvery("SAY_HELLO", helloSaga)
 }
 
+export function* watchWriteLog() {
+  yield takeEvery("WRITE_LOG", writeLog)
+}
+
+export function* writeLog(action) {
+  yield console.log(action.msg)
+}
+
 // notice how we now only export the rootSaga
 // single entry point to start all Sagas at once
-// export default function* rootSaga() {
-//   yield all([helloSaga(), watchIncrementAsync()])
-// }
+export default function* rootSaga() {
+  yield all([watchHello(), watchIncrementAsync(), watchWriteLog()])
+}
