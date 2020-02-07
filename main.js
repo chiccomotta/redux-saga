@@ -23,7 +23,7 @@ function render() {
       onDecrement={() => action({ type: "DECREMENT" })}
       onIncrementAsync={() => action({ type: "INCREMENT_ASYNC" })}
       onSayHello={() => action({ type: "SAY_HELLO" })}
-      onWriteLog={msg => action({ type: "WRITE_LOG", msg: msg })}
+      onWriteLog={msg => action({ type: "WRITE_LOG", msg: msg, author: 'Cristiano Motta' })}
     />,
     document.getElementById("root")
   )

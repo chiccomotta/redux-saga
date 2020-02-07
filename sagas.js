@@ -27,7 +27,7 @@ export function* watchWriteLog() {
 }
 
 export function* writeLog(action) {
-  yield console.log(action.msg)
+  yield console.log(`${action.msg} author is ${action.author}`)
 }
 
 // notice how we now only export the rootSaga
